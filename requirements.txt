@@ -1,4 +1,4 @@
-streamlitspacy==3.8.11
+streamlit==1.37.0
 pandas==2.2.3
 numpy==2.0.2
 torch==2.5.0
