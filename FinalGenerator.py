@@ -58,13 +58,21 @@ class CrimeGraphBuilder:
     def build_graph(self, scene_df: pd.DataFrame) -> Data:
         scene_df = scene_df.sort_values('event_id').reset_index(drop=True)
         n_events = len(scene_df)
+
+        def safe_transform(encoder, value):
+            classes = set(encoder.classes_)
+            if value not in classes:
+                # map to a default like 'knife' or '<unk>'
+                # or closest matching known object
+                return encoder.transform([list(classes)[0]])[0]
+            return encoder.transform([value])[0]
         
         actions, objects, locations = [], [], []
         for _, event in scene_df.iterrows():
             # print(event)
-            actions.append(self.action_encoder.transform([event['action']])[0])
-            objects.append(self.object_encoder.transform([event['object']])[0])
-            locations.append(self.location_encoder.transform([event['location']])[0])
+            objects.append(safe_transform(self.object_encoder, event['object']))
+            locations.append(safe_transform(self.location_encoder, event['location']))
+            actions.append(safe_transform(self.action_encoder, event['action']))
         
         # Fully connected graph
         edge_src, edge_dst = [], []

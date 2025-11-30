@@ -1,10 +1,10 @@
-streamlit
-pandas
-numpy
-torch
+streamlitspacy==3.8.11
+pandas==2.2.3
+numpy==2.0.2
+torch==2.5.0
 torch-geometric
-matplotlib
-networkx
-scikit-learn
-spacy
+matplotlib==3.9.2
+networkx==3.4.2
+scikit-learn==1.5.2
+spacy==3.8.11
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
